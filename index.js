@@ -13,7 +13,7 @@ function cp (from, to, opts, cb) {
     opts = {}
   }
 
-  stat(from, opts, function (err, stats) {
+  stat(from, opts, function onstat (err, stats) {
     if (err) return cb(err)
 
     var pumper
@@ -27,7 +27,7 @@ function cp (from, to, opts, cb) {
       return cb(Error('unsupported resource'))
     }
 
-    pumper(from, to, function (err) {
+    pumper(from, to, function onpump (err) {
       if (err) return cb(err)
       cb(null)
     })
