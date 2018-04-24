@@ -15,6 +15,7 @@
 ``` js
 var { cp, mv } = require('cpmv')
 
+// cp and mv have the same API
 mv(__filename, __filename + '_moved', function (err) {
   if (err) return console.error(err)
   console.log('moved!')
@@ -25,14 +26,13 @@ mv(__filename, __filename + '_moved', function (err) {
 
 ## API
 
-# `cp(from, to, opts, cb)`
+### `cp(from, to[, opts][, cb])`
 
 Copy or move a file or directory. `from` is the source, `to` the target. Calling back with  a single error parameter `cb(err)`. Options default to:
 
 ``` js
 {
   dereference: false // follow symlinks?
-
 }
 ```
 
