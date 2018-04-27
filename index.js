@@ -40,7 +40,7 @@ function mv (from, to, opts, cb) {
     cb = opts
     opts = {}
   }
-  cp(from, to, opts, function oncopied (err) {
+  cp(from, to, opts, function oncopy (err) {
     if (err) return cb(err)
     rimraf(from, function onrimraf (err) {
       if (err) return cb(err)
