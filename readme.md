@@ -6,7 +6,7 @@
 
 ## Get it!
 
-`npm install --save cpmv`
+`npm install --save chiefbiiko/cpmv`
 
 ***
 
