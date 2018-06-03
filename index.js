@@ -1,11 +1,7 @@
-var fs = require('fs')
+var { createReadStream, createWriteStream, lstat } = require('fs')
 var pump = require('pump')
 var pumpDir = require('pump-dir')
 var rimraf = require('rimraf')
-
-function stat (filepath, opts, cb) {
-  opts && opts.dereference ? fs.stat(filepath, cb) : fs.lstat(filepath, cb)
-}
 
 function cp (from, to, opts, cb) {
   if (typeof opts === 'function') {
@@ -13,7 +9,7 @@ function cp (from, to, opts, cb) {
     opts = {}
   }
 
-  stat(from, opts, function onstat (err, stats) {
+  lstat(from, function onstat (err, stats) {
     if (err) return cb(err)
 
     var pumper
@@ -21,16 +17,13 @@ function cp (from, to, opts, cb) {
       pumper = pumpDir
     } else if (stats.isFile()) {
       pumper = pump
-      from = fs.createReadStream(from)
-      to = fs.createWriteStream(to)
+      from = createReadStream(from)
+      to = createWriteStream(to)
     } else {
       return cb(Error('unsupported resource'))
     }
 
-    pumper(from, to, function onpump (err) {
-      if (err) return cb(err)
-      cb(null)
-    })
+    pumper(from, to, cb)
 
   })
 }
@@ -42,14 +35,8 @@ function mv (from, to, opts, cb) {
   }
   cp(from, to, opts, function oncopy (err) {
     if (err) return cb(err)
-    rimraf(from, function onrimraf (err) {
-      if (err) return cb(err)
-      cb(null)
-    })
+    rimraf(from, cb)
   })
 }
 
-module.exports = {
-  cp: cp,
-  mv: mv
-}
+module.exports = { cp, mv }
