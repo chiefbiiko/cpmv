@@ -1,6 +1,6 @@
 {
   "name": "cpmv",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "copy and move files and dirs programmatically",
   "main": "index.js",
   "scripts": {

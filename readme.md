@@ -26,15 +26,13 @@ mv(__filename, __filename + '_moved', function (err) {
 
 ## API
 
-### `cp(from, to[, opts][, cb])`
+### `cp(from, to[, cb(err)])`
 
-Copy or move a file or directory. `from` is the source, `to` the target. Calling back with  a single error parameter `cb(err)`. Options default to:
+Copy a file or directory.
 
-``` js
-{
-  dereference: false // follow symlinks?
-}
-```
+### `mv(from, to[, cb(err)])`
+
+Move a file or directory.
 
 ***
 
